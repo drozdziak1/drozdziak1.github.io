@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "/bin/init"
+date:   2017-02-15 17:00:00 +0100
+categories: dsp17
+tags: dsp17 init start welcome
+---
+This is the beginning of it all. I've decided to take part in the 2017 edition
+of the [Daj Się Poznać][dajsiepoznac] ("Get Noticed") competition. With this
+blog I hope to learn me the secrets of Machine Learning and Data Science using
+Python and C++. By writing all this as a tutorial I want to teach **You** about
+all that  as well. 
+
+{% highlight shell %}
+
+drozdziak1@earth ~ $ mv dreams/blog goals
+
+{% endhighlight %}
+
+[dajsiepoznac]: http://dajsiepoznac.pl
