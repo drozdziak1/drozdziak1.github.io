@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "/bin/init"
-date:   2017-02-15 17:00:00 +0100
+date:   2017-03-01 17:00:00 +0100
 categories: dsp17
 tags: dsp17 init start welcome
 ---
@@ -13,7 +13,7 @@ that as well. Will you take this journey with me?
 
 {% highlight shell %}
 
-drozdziak1@earth ~ $ install -m 777 goals/blog reality/ # Everything is possible!
+$ install -m 777 goals/blog reality/ # Everything is possible!
 
 {% endhighlight %}
 
