@@ -3,6 +3,7 @@ layout: post
 title:  "/bin/init"
 date:   2017-02-15 17:00:00 +0100
 categories: dsp17
+comments: true
 tags: dsp17 init start welcome
 ---
 I've decided to take part in the 2017 edition of the [Daj Się
