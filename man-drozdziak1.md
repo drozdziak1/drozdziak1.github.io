@@ -11,6 +11,9 @@ SYNOPSIS
     drozdziak1 <command> [arguments]
 
 DESCRIPTION
-    drozdziak1
+    drozdziak1 is a general purpose human able in various fields.
+
+OPTIONS
+
 
 ```
