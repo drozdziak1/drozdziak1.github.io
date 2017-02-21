@@ -1,11 +1,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--<meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline'; object-src 'unsafe-inline'"/>-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
-<meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline'; object-src 'unsafe-inline'"/>
 
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,400,500" rel="stylesheet">
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
