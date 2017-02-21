@@ -23,8 +23,10 @@ github_username:  drozdziak1
 
 google_analytics: UA-92058921-1
 
-disqus:
-  shortname: drozdziak1-github-io
+#disqus:
+  #shortname: drozdziak1-github-io
+muut:
+  name: drozdziak1-github-io
 
 # Build settings
 markdown: kramdown
