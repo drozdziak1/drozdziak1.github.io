@@ -5,7 +5,7 @@ your Jekyll blog"
 date:   2017-02-24 8:00:00 +0100
 categories: dsp17 meta
 tags: dsp17 tutorial jekyll rss muut comments feed disqus alternative
-published: true
+published: false
 ---
 
 When I first heard about Jekyll,  it  was  an  epiphany.   The  main  highlights
