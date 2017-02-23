@@ -2,14 +2,14 @@
 layout: default
 ---
 
-<div class="home">
+<div class="category">
 
-  <h1 class="page-heading">Posts</h1>
-  
+  <h1 class="page-heading">Posts from the {{page.category_name}} category</h1>
+
   {{ content }}
 
   <ul class="post-list">
-    {% for post in site.posts %}
+    {% for post in site.categories[page.category_name] %}
       <li>
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
@@ -20,6 +20,7 @@ layout: default
     {% endfor %}
   </ul>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+  {% capture feed_file %}/feed.{{ page.category_name }}.xml{%endcapture%}
+  <p class="rss-subscribe">subscribe <a href="{{ feed_file | relative_url }}">via RSS</a></p>
 
 </div>
