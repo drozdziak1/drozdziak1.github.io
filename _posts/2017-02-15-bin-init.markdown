@@ -19,6 +19,6 @@ learn me the secrets of Machine Learning and Data Science using Python and C++.
 By writing everything down into a tutorial I want to teach **You** about all
 that as well.
 
-`Will you take this journey with me? (Y/n)`
+`Will you make this trip with me? (Y/n)`
 
 [dajsiepoznac]: http://dajsiepoznac.pl
