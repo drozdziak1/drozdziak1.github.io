@@ -3,15 +3,13 @@ layout: post
 title:  "/bin/init"
 date:   2017-02-15 8:00:00 +0100
 categories: dsp17
+published: true
 tags: dsp17 init start welcome
 ---
-<!--Bizarre Liquid bug fix-->
 
-{% highlight shell %}
-
+```shell
 $ install -m 777 goals/blog reality/ # Everything is possible!
-
-{% endhighlight %}
+```
 
 I've decided to take part in the 2017 edition of the [Daj Się
 Poznać][dajsiepoznac] ("Get Noticed") competition. With this blog I hope to
