@@ -4,7 +4,7 @@ title:  "/bin/init"
 date:   2017-02-15 8:00:00 +0100
 categories: dsp17
 published: true
-tags: dsp17 init start welcome
+tags: dsp17 init start welcome introduction
 ---
 
 ```shell
@@ -18,5 +18,13 @@ By writing everything down into a tutorial I want to teach **You** about all
 that as well.
 
 `Will you make this trip with me? (Y/n)`
+
+# Edit: A change in direction
+The field of Machine Learning is a vast collection of knowledge that grows
+really fast. It managed to surface itself in pop culture and prove useful in
+everyday tasks.
+
+As much as I 
+
 
 [dajsiepoznac]: http://dajsiepoznac.pl

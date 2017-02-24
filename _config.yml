@@ -16,6 +16,7 @@
 title: Stan Drozd
 email: drozdziak1@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
+  This website is text browser friendly.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://drozdziak1.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: drozdziak1
