@@ -75,8 +75,55 @@ access the xml file on the target GitHub Pages website), please **make sure that
 you specified the `url` variable in your `_config.yml` file**.
 
 This template could easily be transformed into a category listing layout - e.g.
-by reusing the `_layouts/home.html` file from Minima. Because the procedure is
-very similar, I'll leave the implementation to you.
+by reusing the `_layouts/home.html` file from Minima. Here's a sample
+`category.html` layout I have created:
+{% raw %}
+```html
+---
+layout: default
+---
+
+<div class="category">
+
+  <h1 class="page-heading">Posts from the {{page.category_name}} category</h1>
+
+  {{ content }}
+
+  <ul class="post-list">
+    {% for post in site.categories[page.category_name] %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+        <h2>
+          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% capture feed_file %}/feed.{{ page.category_name }}.xml{%endcapture%}
+  <p class="rss-subscribe">subscribe <a href="{{ feed_file | relative_url }}">via RSS</a></p>
+
+</div>
+```
+{%endraw%}
+
+To use it, you just need to create a new markdown file in the root of your
+blog's directory, specify the layout as `category` and set the `category_name`
+variable. I went with `dsp17.md` for the competition:
+{% raw %}
+```
+---
+layout: category
+category_name: dsp17
+title: DSP'17
+---
+```
+{% endraw %}
+
+Keep in mind that `category.html` shows a link to a `feed.<category_name>.xml`
+file, which will result in a `404` error unless you create the file manually (e.g.
+using my XML template).
 
 ## The comment madness
 The default Jekyll theme supports Disqus comments by specifying your blog's
