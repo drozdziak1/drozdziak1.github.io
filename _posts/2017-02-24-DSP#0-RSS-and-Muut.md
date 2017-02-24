@@ -123,7 +123,7 @@ title: DSP'17
 
 Keep in mind that `category.html` shows a link to a `feed.<category_name>.xml`
 file, which will result in a `404` error unless you create the file manually (e.g.
-using my XML template).
+using my XML template from above).
 
 ## The comment madness
 The default Jekyll theme supports Disqus comments by specifying your blog's
