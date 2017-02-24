@@ -24,7 +24,8 @@ The field of Machine Learning is a vast collection of knowledge that grows
 really fast. It managed to surface itself in pop culture and prove useful in
 everyday tasks.
 
-As much as I 
+As much as I admire the field and am willing to master it, my lack of expertise
+(especially in C++) might hurt the educational value of my DSP project.
 
 
 [dajsiepoznac]: http://dajsiepoznac.pl
