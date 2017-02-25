@@ -4,7 +4,7 @@ title:  "/bin/init"
 date:   2017-02-15 8:00:00 +0100
 categories: dsp17
 published: true
-tags: dsp17 init start welcome introduction
+tags: dsp17 init start welcome introduction machine learning linux kernel
 ---
 
 ```shell
@@ -19,13 +19,26 @@ that as well.
 
 `Will you make this trip with me? (Y/n)`
 
-# Edit: A change in direction
-The field of Machine Learning is a vast collection of knowledge that grows
+# 2017-02-25 Edit: A change in direction
+The realm of Machine Learning is a vast collection of knowledge that grows
 really fast. It managed to surface itself in pop culture and prove useful in
 everyday tasks.
 
 As much as I admire the field and am willing to master it, my lack of expertise
-(especially in C++) might hurt the educational value of my DSP project.
+(especially in C++) might hurt the educational value of the tutorial. Going with
+just Python on the other hand would simply make it yet another bunch of
+(possibly erroneous) text on tools which already have tons of helpful content
+created around them.
 
+Being a C developer, I think I'll be able to deliver more informed content when
+armed with a language that I know well while, at the same time, proving myself
+through work with a challenging, highly technical topic.
+
+For that reason I made the call to switch the main track of this blog to Linux
+Kernel Development - an interesting, somewhat cryptic craft with a low-level
+twist, which can give you a whole new point of view on the whole operating
+systems biz. Looks like a favorable outcome, no?
+
+:boy: :book: :penguin: :boom: :nerd_face:
 
 [dajsiepoznac]: http://dajsiepoznac.pl
