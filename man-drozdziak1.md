@@ -21,7 +21,7 @@ DESCRIPTION
     Science and Mathematics to a good use. Whenever things get too technical, he
     likes   to    take    refuge    in    composition    of    C64    chiptunes.
 
-    In his work, drozdziak1  values  the  use  of  out-of-the-box  thinking  and
+    In his work, drozdziak1 values  the  use  of  outside-the-box  thinking  and
     solutions that keep in mind the future.
 
 RETURN VALUE

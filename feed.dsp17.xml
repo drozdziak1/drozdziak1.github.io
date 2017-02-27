@@ -12,6 +12,7 @@ category_name: dsp17
 		<item>
 			<title>{{ post.title | xml_escape }}</title>
 			{% if post.excerpt %}
+			<author>{{ site.email }} ({{ post.author }})</author>
 			<description>{{ post.excerpt | xml_escape }}</description>
 			{% else %}
 			<description>{{ post.content | xml_escape }}</description>
