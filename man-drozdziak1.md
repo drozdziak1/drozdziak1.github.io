@@ -16,7 +16,7 @@ SYNOPSIS
 
 DESCRIPTION
     drozdziak1 is a general purpose human able in various fields.   His  efforts
-    are mostly focused  around  learning  new  things  and  keeping  shit  real.
+    are mostly focused around learning  new  things  and  keeping  (sh)it  real.
     He loves performing creative tasks,  especially  those  which  put  Computer
     Science and Mathematics to a good use. Whenever things get too technical, he
     likes   to    take    refuge    in    composition    of    C64    chiptunes.
@@ -32,5 +32,5 @@ RETURN VALUE
 SEE ALSO
     Linus  Torvalds,  Julia  Evans,  Free  Electrons,  Sarah  Sharp,  Brian   W.
     Kernighan, Dennis Ritchie, the K&R book, Andrew  Ng,  the  Machine  Learning
-    course on Coursera, Kernel Newbies, LKML
+    course on Coursera, Kernel Newbies, LKML, Gustavo Duarte
 ```

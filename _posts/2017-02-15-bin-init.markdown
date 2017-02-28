@@ -3,7 +3,7 @@ layout: post
 title:  "/bin/init"
 author: Stan Drozd
 date:   2017-02-15 8:00:00 +0100
-categories: dsp17
+categories:
 published: true
 tags: dsp17 init start welcome introduction machine learning linux kernel
 ---
