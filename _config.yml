@@ -39,4 +39,4 @@ gems:
 exclude:
   - Gemfile
   - Gemfile.lock
-#future: false # Prevent GitHub Pages from prerendering future posts
+future: false # Prevent GitHub Pages from prerendering future posts
