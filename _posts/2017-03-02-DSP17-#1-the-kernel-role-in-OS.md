@@ -98,8 +98,8 @@ a couple examples of things to consider when dealing with kernel code:
   the user to reboot their machine. Not the nicest thing to happen to a server,
   right?
 * **Pointers in kernel mode are not guaranteed to be valid in the userland** -
-  When working with data passed by reference from or back to the user, it's
-  crucial to consider a kernel's address translation API for the two modes.
+  When working with pointers passed by reference from or back to the user, it's
+  crucial to consider a kernel's address translation API between the two modes.
   Failing to acknowledge that can lead to bugs that easily hide in plain sight.
 * **Backdoors are lethal** - kernel backdoors make for the ultimate security
   threats. Imagine a USB driver bug which would let anyone escalate their
@@ -151,9 +151,11 @@ nexus and also an operating system project, was in fact in need of a kernel.
 However, their own creation - [Hurd][hurd] - was not yet ready to sufficiently
 bring the project to life. Thus, GNU/Linux was born. Within a couple years, the
 first distributions - [Slackware](slackware) and [Debian](debian) - appeared,
-with many others to come. Tux the Penguin has become its official mascot:
+with many more to come.
 
 ![Tux](http://isc.tamu.edu/~lewing/linux/sit3-shine.7.gif)
+
+*Tux the Penguin has become Linux' official mascot*
 
 # Conclusion
 Linux proved itself over the years to be a reliable piece of software that
