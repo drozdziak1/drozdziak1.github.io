@@ -185,8 +185,8 @@ section showing outside production and only add the check for whether comments
 are on.
 
 After pasting in the embed code, we fill in the `community-name` placeholder and
-append the post title for Muut to automatically start new comment threads. My
-final result for the post layout is something along these lines:
+append the post file name for Muut to automatically start new comment threads.
+My final result for the post layout is something along these lines:
 
 {% raw %}
 ```html
@@ -205,7 +205,7 @@ layout: default
   </div>
 
   {% if site.muut.name and page.comments != false %}
-    <a class="muut " href="https://muut.com/i/{{ site.muut.name }}/{{ page.title }}">{{ site.muut.name }} forum</a>
+    <a class="muut " href="https://muut.com/i/{{ site.muut.name }}/{{ page.path }}">{{ site.muut.name }} forum</a>
     <script src="//cdn.muut.com/1/moot.min.js"></script>
   {% endif %}
 </article>
