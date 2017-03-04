@@ -92,7 +92,7 @@ a couple examples of things to consider when dealing with kernel code:
   All three options take extra time for a mere convenience, with most use cases
   for floating point being completely replaceable. One easy way to avoid them is
   to designate some bits in an integer to the decimal part, which in fact is
-  what a lot of hardware does anyway
+  what a lot of hardware does anyway.
 * **Kernel space requires top-notch error handling** - one critical error (like
   a segfault) in the kernel is enough to compromise the whole system and force
   the user to reboot their machine. Not the nicest thing to happen to a server,
