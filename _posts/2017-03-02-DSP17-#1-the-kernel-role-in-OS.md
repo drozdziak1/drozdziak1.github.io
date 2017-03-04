@@ -98,9 +98,9 @@ a couple examples of things to consider when dealing with kernel code:
   the user to reboot their machine. Not the nicest thing to happen to a server,
   right?
 * **Pointers in kernel mode are not guaranteed to be valid in the userland** -
-  When working with pointers passed by reference from or back to the user, it's
-  crucial to consider a kernel's address translation API between the two modes.
-  Failing to acknowledge that can lead to bugs that easily hide in plain sight.
+  When working with pointers passed from or back to the user, it's crucial to
+  consider a kernel's address translation API between the two modes.  Failing to
+  acknowledge that can lead to bugs that easily hide in plain sight.
 * **Backdoors are lethal** - kernel backdoors make for the ultimate security
   threats. Imagine a USB driver bug which would let anyone escalate their
   privileges by burning a special sequence of bytes onto a pen drive and then
