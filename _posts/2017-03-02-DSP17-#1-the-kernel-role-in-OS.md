@@ -169,7 +169,7 @@ meme:
 *Actually, the text above is not an official quote on GNU's founder Richard
 Stallman, it probably emerged from some Internet forum.*
 
-The kernel supports a tiny bit more hardware than just [x86 and
+Nowadays, the kernel supports a tiny bit more hardware than just [x86 and
 AT-harddisks](http://www.linux-drivers.org/) and its distros run a little  more
 software than [Bash 1.08 and GCC 1.40][popcon-stats].
 
