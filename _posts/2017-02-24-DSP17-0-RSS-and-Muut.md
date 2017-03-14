@@ -229,7 +229,7 @@ I hope someone finds it helpful, but should you have any questions, feel free to
 drop a line below.
 
 [csp]: https://content-security-policy.com/
-[dsp]: dajsiepoznac.pl/
+[dsp]:http://dajsiepoznac.pl/
 [ghpages]: https://pages.github.com/
 [jekyll-rss-feeds]: https://github.com/snaptortoise/jekyll-rss-feeds
 [liquid]: http://shopify.github.io/liquid/
