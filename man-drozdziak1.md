@@ -30,7 +30,7 @@ RETURN VALUE
     the value.
 
 SEE ALSO
-    Linus  Torvalds,  Julia  Evans,  Free  Electrons,  Sarah  Sharp,  Brian   W.
-    Kernighan, Dennis Ritchie, the K&R book, Andrew  Ng,  the  Machine  Learning
-    course on Coursera, Kernel Newbies, LKML, Gustavo Duarte
+    Linus Torvalds,  Greg  Kroah-Hartman  Julia  Evans,  Free  Electrons,  Sarah
+    Sharp, Brian W.  Kernighan, Dennis Ritchie, the K&R  book,  Andrew  Ng,  the
+    Machine Learning course on Coursera, Kernel Newbies,  LKML,  Gustavo  Duarte
 ```
