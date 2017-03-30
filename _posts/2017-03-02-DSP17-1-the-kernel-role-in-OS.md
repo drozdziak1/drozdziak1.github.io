@@ -59,7 +59,6 @@ of userland:
   Linus Torvalds refused to work on when Apple tried to hire him), widely known
   for being an ancestor to the kernels that power macOS and GNU [Hurd][hurd] (A
   Linux alternative from GNU, optionally available in Debian and Gentoo).
-
 * **Monolithic kernels** - a monolithic kernel is the standard for UNIX-based
   operating systems. All of its subsystems exist within the same address space,
   thus minimizing the time spent on switches to user space and back. However,
@@ -70,7 +69,6 @@ of userland:
   post. The most popular example of a monolithic kernel and the subject of this
   tutorial series is obviously Linux. There's also the FreeBSD kernel and the
   somewhat microkernel-ish NT kernel that powers Windows.
-
 * **Unikernels** - this highly specialized kind of kernel could be thought of as
   the most controlling one. In fact, a unikernel in itself is nothing more than
   a library, against which an application is directly linked at compile time,
@@ -101,6 +99,14 @@ a couple examples of things to consider when dealing with kernel code:
   When working with pointers passed from or back to the user, it's crucial to
   consider a kernel's address translation API between the two modes.  Failing to
   acknowledge that can lead to bugs that easily hide in plain sight.
+* **Avaliability of libc functions is not guaranteed** - C standard libraries
+  are usually compiled to work on a certain operating system, but when the
+  execution environment is the OS itself, implementation becomes trickier and
+  some parts of the library become irrelevant, e.g. Linux provides a `printk()`
+  function for `printf()`-style printing to the kernel log, while actual
+  `printf()` is not available, since there's no `stdout` to print to. The parts
+  of the standard library which are actually necessary are reimplemented in the
+  kernel.
 * **Backdoors are lethal** - kernel backdoors make for the ultimate security
   threats. Imagine a USB driver bug which would let anyone escalate their
   privileges by burning a special sequence of bytes onto a pen drive and then
