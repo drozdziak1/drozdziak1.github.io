@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "DSP-17 #4: \"Around a flowering tree, one finds many insects\" - Linux
+title: "Kernel Safari #4: \"Around a flowering tree, one finds many insects\" - Linux
 source tree explained"
 author: Stan Drozd
 date: 2017-04-10 08:00:00 +0200

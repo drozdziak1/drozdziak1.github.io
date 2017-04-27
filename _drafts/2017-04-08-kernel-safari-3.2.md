@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "DSP-17 #3.1: The Art of Whinig a.k.a. Constructive Criticism 101"
+title: "Kernel Safari #3.2: The Art of Whinig a.k.a. Constructive Criticism 101"
 author: Stan Drozd
 date: 2017-04-08 08:00:00 +0200
 categories: dsp17
