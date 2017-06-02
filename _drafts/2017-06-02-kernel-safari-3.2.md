@@ -10,10 +10,6 @@ Security Fest 2017 had in store for the interesting challenge which almost
 no-one could solve"
 tags: ctf securityfest reverse engineering
 ---
-* What a CTF is
-* challenge text, solution
-* Post naming convention
-
 Long time no see! I finally got myself to write something for the blog in a
 ```c
 long long time;
@@ -25,11 +21,11 @@ over. I didn't make it till the end, but starting this blog was a great
 experience for me, and it wouldn't ever happen if not for the competition. From
 now on I'll be posting under the label of **Kernel Safari**.
 
-Let's see what the
-`Security Fest` 2017 CTF's `2bright` challenge was about, but first...
+Let's see what the `Security Fest` 2017 CTF's `2bright` challenge was about, but
+first...
 
 # What's a CTF?
-Capture The Flag (or CTFs for short) are sets of computer security challenges in
+"Capture The Flag"s (or CTFs for short) are sets of computer security challenges in
 which teams of participants have to obtain passwords (flags) hidden in various
 digital shapes and forms - be it insecure websites which you have to hack,
 ordinary files with hidden content, encrypted media or executables. They aim to
@@ -43,9 +39,9 @@ jobs](https://join.eset.com/en/challenges/malware-analyst).
 A couple weeks ago, I joined a team called
 [OpenToAll](https://www.reddit.com/r/OpenToAllCTFteam/) which, as the name
 suggests, is open for anyone without a team who would like to participate in a
-CTF. Two days ago, I had the opportunity to take part in my first CTF - an event
-hosted by [Security Fest](https://twitter.com/securityfest). Our team got
-the 3rd place!
+CTF. Two days ago, I finally seized the opportunity to join OpenToAll in my
+first CTF, hosted by [Security
+Fest](https://twitter.com/securityfest). Our team got the 3rd place!
 
 # The challenge
 My contribution to our score was through `2bright`, a challenge consisting of a
@@ -58,8 +54,8 @@ hint:
 
 # My solution
 Let's untar the file! Doing that leaves us with a file called `2bright`, which
-when passed to `file`, showed as a `MMDF mailbox`. After a quick look at `man
-mmdf` I was sure it wasn't necessarily it. Into the hex editor it goes!
+when passed to `file` was recognized as a `MMDF mailbox`. After a quick look at `man
+mmdf` I was quite confident that `file`'s diagnosis was incorrect. Into the hex editor it goes!
 
 The file starts with a sequence that seems to specify it's total (16KB) size:
 ```plain
@@ -204,7 +200,7 @@ after choosing the file, not `Open` (it probably was some kind of raw executable
 format). After loading for a couple seconds, the screen filled with white and
 flashing letters forming the text we saw a while ago:
 
-![VICE screen 1]({{ site.url  }}/assets/vice_screenshot_1.png)
+![VICE screen 1]({{ site.url }}/assets/vice_screenshot_1.png)
 *So... that's it?*
 
 # And then it hit me
@@ -219,7 +215,8 @@ by time at all.
 # Unveiling the flag
 So, I read on the VICE emulator debugging options and C64 itself, and found that
 the device holds the background color value at memory offset `$d021`. I hit
-`Alt+H` to enable VICE's Monitor mode and wrote a `02` byte to the offset:
+`Alt+H` to enable VICE's Monitor (a fancy name for a debugger that is) and wrote
+a `02` byte to the offset:
 ```plain
 AUTOSTART: `/home/drozdziak1/2bright' recognized as snapshot image.
 Main CPU: RESET.
@@ -231,7 +228,22 @@ Sound: Opened device `pulse', speed 44100Hz, fragment size 1,5ms, buffer size
 100ms
 reSID: MOS8580, filter on, sampling rate 44100Hz - resampling, pass to 19845Hz
 Drive 8: RESET (For undump).
-(C:$4109) > d021 02 # That's where we overwrite the background!
-(C:$4109) return
+(C:$4109) > d021 02
 ```
+*The last line changes the background color to brown.*
 
+The one thing left to do was continue program execution with `return`:
+
+![VICE screen 2]({{ site.url }}/assets/vice_screenshot_2.png)
+*The flag is actually meant to be entered without spaces.*
+
+# Conclusion
+So there you have it. My first writeup from my first CTF. I had a ton of fun and
+adding to the very low solve count was quite a confidence booster, I can't wait
+for the CTFs to come! Feel free to speak your mind in the comments.
+
+```nasm
+mov     rax, 0
+pop     rbp
+ret             ; See ya!
+```
