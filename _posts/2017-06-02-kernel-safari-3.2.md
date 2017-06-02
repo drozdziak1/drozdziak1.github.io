@@ -3,7 +3,7 @@ layout: post
 title: "Kernel Safari #3.2: Security Fest 2017 CTF - the 2bright challenge
 writeup"
 author: Stan Drozd
-date: 2017-06-02 08:00:00 +0200
+date: 2017-06-02 17:00:00 +0200
 categories: kernelsafari
 excerpt: "Solving CTF challenges turns out to be very exciting! Let's see what
 Security Fest 2017 had in store for the interesting challenge which almost
