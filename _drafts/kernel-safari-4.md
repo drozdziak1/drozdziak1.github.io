@@ -55,11 +55,16 @@ houses the better part of Linux docs. Its topics span from development
 environment tips, the [kernel development
 process](https://www.kernel.org/doc/html/latest/process/development-process.html)
 and patch exchange rules, all the way to the intricacies of how the actual code
-works. As far as docs viewing goes, the modern approach is to use the Sphinx
+works. As far as docs viewing goes, the modern approach is to use the sphinx
 generated RST docs available under the `*docs` Make targets (see `make help |
 grep docs` for more details) or one of the hosted instances like
 [https://www.kernel.org/doc/html/latest](https://www.kernel.org/doc/html/latest)
 
 # arch/
-You probably won't be surprised to hear that `arch/` is responsible for all
-things architecture-specific. This is where
+`arch/` is responsible for all things architecture-specific. Also, whenever you
+build a kernel, it's often where you'll find the final kernel image resulting
+from your build, e.g.  `arch/x86/boot/bzImage` for a typical x86 defconfig
+build.
+
+# block/
+
