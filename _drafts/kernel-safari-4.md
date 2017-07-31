@@ -1,21 +1,23 @@
 ---
 layout: post
-title: "Kernel Safari #4: The Linux kernel source tree explained"
+title: "Kernel Safari #4: The (source) Tree of the Knowledge of Good and Evil"
 author: Stan Drozd
 date: 2017-07-31 08:00:00 +0200
-categories: dsp17
-excerpt: "Climb the tree, seize the fruit"
-tags: dsp17 tutorial kernel modules c compilation
+categories: kernel-safari
+excerpt: "Will you dare to seize the forbidden fruit?"
+tags: tutorial kernel modules c compilation tree signing
 ---
 
-Hiya! At this point you must have noticed that I took a small hiatus from the
-blog for a couple weeks. I spent that time primarily on learning about some of
-the cool stuff that happens outside the kernel realm. I believe that too much
+Hiya! It trully is good to be back. I took a small hiatus from the blog for a
+couple weeks, and I spent that time primarily on learning about some of the cool
+stuff that happens outside the kernel realm. I believe that too much
 specialization can do to a brain what an undiversified diet does to a body.
 
 Today we're going to talk about the kernel source directory and how to find your
 way around it. We'll cover the basic purpose of every top-level directory and
 talk more in-depth about the ones which you'll be peeking into the most often.
+Also, it's a good idea to talk about the patterns occuring in the directory
+layout in different places around the source tree.
 
 ```plain
 -rw-r--r--   1 drozdziak1 drozdziak1  18693 2016-09-07  COPYING
@@ -55,10 +57,12 @@ houses the better part of Linux docs. Its topics span from development
 environment tips, the [kernel development
 process](https://www.kernel.org/doc/html/latest/process/development-process.html)
 and patch exchange rules, all the way to the intricacies of how the actual code
-works. As far as docs viewing goes, the modern approach is to use the sphinx
-generated RST docs available under the `*docs` Make targets (see `make help |
-grep docs` for more details) or one of the hosted instances like
-[https://www.kernel.org/doc/html/latest](https://www.kernel.org/doc/html/latest)
+works. As far as docs viewing goes, the modern approach is to use the
+sphinx-generated RST docs available under the `*docs` Make targets (see `make
+help | grep docs` for more details) or one of the hosted instances like
+[https://www.kernel.org/doc/html/latest](https://www.kernel.org/doc/html/latest).
+To view a freshly compiled batch of docs, see the `Documentation/output`
+directory in your source tree.
 
 # arch/
 `arch/` is responsible for all things architecture-specific. Also, whenever you
@@ -67,4 +71,59 @@ from your build, e.g.  `arch/x86/boot/bzImage` for a typical x86 defconfig
 build.
 
 # block/
+Block devices stuff
 
+# certs/
+`certs/` holds the code responsible for [module
+signing](https://www.kernel.org/doc/html/latest/admin-guide/module-signing.html)
+\- a safety feature that prevents the kernel from loading unauthorized modules.
+
+# crypto/
+`crypto/` is the home of the kernel's cryptographic API, which consists of
+different cipher implementations and the code to make use of them; it's where
+hardware crypto capabilities get hooked up with your OS.
+
+> :information_source: Note:
+>
+> The kernel crypto API also implements different algorithms than ciphers, e.g.
+> compression algs.
+
+# drivers/
+Probably the most important directory in the whole project, if not only the
+biggest (at whopping 513MB of source code, nearly half of the whole codebase).
+This is where all the hardware/software chat is going, where lower-half drivers
+meet with their upper-half counterparts, where the magic of hardware abstraction
+happens.
+
+# firmware/
+`firmware/` is the home of volatile firmware blobs, one of the few places where
+there is no human-readable source code in the kernel codebase. If you understand
+what the bit about blobs means, feel free to scroll to the next dir. If not,
+prepare to learn a thing or two :slightly_smiling_face:
+
+Imagine you have a USB stick - be it an LTE modem, a WiFi card or a DVB tuner.
+Your device has a couple on-board chips, among which there's a write-protected
+non-volatile flash die for storing the device's firmware. Nothing unusual about
+that, huh?
+
+**But!** What if your developers make a mistake or discover a security hole and
+thousands of devices were to become vulnerable, with no way out other than
+discarding them?
+
+**But!** What if a wireless technology which your device works with is growing
+very fast and receiving frequent updates? What if those would normally force you
+to release new versions of your hardware more often than you can afford?
+
+**But!** What if your hardware needs to work with tens of different
+configurations depending e.g. on the target country? Like WiFi cards do with
+respect to restricted radio frequency
+[regulations](https://wireless.wiki.kernel.org/en/developers/Regulatory)?  Would
+all of those regulations stay unchanged over the years? Could you afford a flash
+so big that all the configs fit on a single device?
+
+What if you could write your device driver so that **it's the OS's job to find
+and load correct firmware** onto your device? That's the way many device
+manufacturers choose; giving the firmware for the kernel to load at
+device-plug-in-time answers the questions above.
+
+**But why does firmware have its source closed?**
