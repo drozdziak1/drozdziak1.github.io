@@ -96,18 +96,17 @@ meet with their upper-half counterparts, where the magic of hardware abstraction
 happens.
 
 # firmware/
-`firmware/` is the home of volatile firmware blobs, one of the few places where
+`firmware/` is the home of firmware blobs, one of the few places where
 there is no human-readable source code in the kernel codebase. If you understand
 what the bit about blobs means, feel free to scroll to the next dir. If not,
 prepare to learn a thing or two :slightly_smiling_face:
 
 Imagine you have a USB stick - be it an LTE modem, a WiFi card or a DVB tuner.
 Your device has a couple on-board chips, among which there's a write-protected
-non-volatile flash die for storing the device's firmware. Nothing unusual about
-that, huh?
+flash die for storing the device's firmware. Nothing unusual about that, huh?
 
 **But!** What if your developers make a mistake or discover a security hole and
-thousands of devices were to become vulnerable, with no way out other than
+thousands of devices were to become vulnerable, with no other way out than
 discarding them?
 
 **But!** What if a wireless technology which your device works with is growing
@@ -117,13 +116,24 @@ to release new versions of your hardware more often than you can afford?
 **But!** What if your hardware needs to work with tens of different
 configurations depending e.g. on the target country? Like WiFi cards do with
 respect to restricted radio frequency
-[regulations](https://wireless.wiki.kernel.org/en/developers/Regulatory)?  Would
+[regulations](https://wireless.wiki.kernel.org/en/developers/Regulatory)? Would
 all of those regulations stay unchanged over the years? Could you afford a flash
 so big that all the configs fit on a single device?
 
-What if you could write your device driver so that **it's the OS's job to find
-and load correct firmware** onto your device? That's the way many device
-manufacturers choose; giving the firmware for the kernel to load at
-device-plug-in-time answers the questions above.
+What if you could design your hardware so that **the OS can load a firmware
+on-demand**? To answer the qeustions above, many manufacturers go even further
+and choose to make it so that **the device's memory is volatile and it's the
+OS's job to find and load the correct firmware image onto the device**, while
+the hardware in itself only provides the basic mechanisms for firmware loading.
 
-**But why does firmware have its source closed?**
+#### But why does firmware have its source closed?
+There's one thing you need to know about hardware manufacturing: source code can
+reveal how your hardware works, which inherently is how you get cheap knock-offs
+from the competition and unsolicited reverse engineering of your product.
+
+# fs/
+This place is special, because it describes the implementation of all the
+different filesystems that Linux supports. Some of them are not tied to real
+drives (they're called *pseudofilesystems*, e.g. `devtmpfs` used for `/dev/` or
+`sysfs` used for `/sys/`), some Filesystems are implemented here, along with
+their common abstraction layer known as VFS (Virtual File System).
