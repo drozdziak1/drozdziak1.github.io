@@ -4,7 +4,8 @@ title: "Kernel Safari #4: The (source) Tree of the Knowledge of Good and Evil"
 author: Stan Drozd
 date: 2017-07-31 08:00:00 +0200
 categories: kernel-safari
-excerpt: "Will you dare to seize the forbidden fruit?"
+excerpt: "Had an inner conflict about whether Genesis or Dante's Inferno would
+suit this topic better"
 tags: tutorial kernel modules c compilation tree signing
 ---
 
@@ -96,10 +97,10 @@ meet with their upper-half counterparts, where the magic of hardware abstraction
 happens.
 
 # firmware/
-`firmware/` is the home of firmware blobs, one of the few places where
-there is no human-readable source code in the kernel codebase. If you understand
-what the bit about blobs means, feel free to scroll to the next dir. If not,
-prepare to learn a thing or two :slightly_smiling_face:
+`firmware/` is the home of firmware blobs, one of the few places where there is
+no human-readable source code in the kernel codebase. If you understand what
+loadable firmware is about, feel free to scroll to the next dir. If not, prepare
+to learn a thing or two :slightly_smiling_face:
 
 Imagine you have a USB stick - be it an LTE modem, a WiFi card or a DVB tuner.
 Your device has a couple on-board chips, among which there's a write-protected
@@ -128,12 +129,58 @@ the hardware in itself only provides the basic mechanisms for firmware loading.
 
 #### But why does firmware have its source closed?
 There's one thing you need to know about hardware manufacturing: source code can
-reveal how your hardware works, which inherently is how you get cheap knock-offs
+reveal how your hardware works. Inherently this is how you get cheap knock-offs
 from the competition and unsolicited reverse engineering of your product.
 
 # fs/
 This place is special, because it describes the implementation of all the
 different filesystems that Linux supports. Some of them are not tied to real
 drives (they're called *pseudofilesystems*, e.g. `devtmpfs` used for `/dev/` or
-`sysfs` used for `/sys/`), some Filesystems are implemented here, along with
-their common abstraction layer known as VFS (Virtual File System).
+`sysfs` used for `/sys/`) and exist purely in RAM. But pseudo- or not, their
+common denominator is the interface known as VFS (Virtual File System) - the
+part of Linux that lets you browse files on different partitions as if they were
+a part of a single hierarchy.
+
+# include/
+Headers. And lots of them.
+
+# init/
+Generic kernel startup code.
+
+# ipc/
+These directory names sort of spoil the surprise, don't they?
+
+`ipc/` is where inter-process communication code lives.
+
+# kernel/
+Generic kernel code (schedulers, namespaces, cgroups, user handling)
+
+# lib/
+Helper functions
+
+# mm/
+Memory management
+
+# net/
+Networking
+
+# samples/
+Code samples
+
+# scripts/
+Helper scripts
+
+# security/
+Security infrastructure (home of SELinux, Tomoyo and others)
+
+# sound/
+sound
+
+# tools/
+Helper tools and test programs
+
+# usr/
+initcpio generation tools
+
+# virt/
+Home of KVM
