@@ -67,12 +67,14 @@ directory in your source tree.
 
 # arch/
 `arch/` is responsible for all things architecture-specific. Also, whenever you
-build a kernel, it's often where you'll find the final kernel image resulting
-from your build, e.g.  `arch/x86/boot/bzImage` for a typical x86 defconfig
-build.
+build a kernel, it's where you'll most likely find the final kernel image
+resulting from your build, e.g.  `arch/x86/boot/bzImage` for a typical x86
+`defconfig` build.
 
 # block/
-Block devices stuff
+This is the home of Linux block device implementation and the related generic
+implementations of I/O handling, scheduling, proritization, the relevant ioctl()
+requests etc.
 
 # certs/
 `certs/` holds the code responsible for [module
