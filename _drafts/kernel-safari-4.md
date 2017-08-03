@@ -144,10 +144,12 @@ part of Linux that lets you browse files on different partitions as if they were
 a part of a single hierarchy.
 
 # include/
-Headers. And lots of them.
+Headers. And lots of them - if you've seen enough C/C++ projects, you won't be
+surprised to find most global headers in here.
 
 # init/
-Generic kernel startup code.
+Generic kernel startup code (the platform-specific stuff lies in
+`arch/<your_architecture>`)
 
 # ipc/
 These directory names sort of spoil the surprise, don't they?
