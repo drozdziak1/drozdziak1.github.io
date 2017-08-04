@@ -73,8 +73,8 @@ resulting from your build, e.g.  `arch/x86/boot/bzImage` for a typical x86
 
 # block/
 This is the home of Linux block device implementation and the related generic
-implementations of I/O handling, scheduling, proritization, the relevant ioctl()
-requests etc.
+implementations of I/O handling, scheduling, proritization, the relevant
+`ioctl()` requests, etc.
 
 # certs/
 `certs/` holds the code responsible for [module
@@ -145,26 +145,28 @@ a part of a single hierarchy.
 
 # include/
 Headers. And lots of them - if you've seen enough C/C++ projects, you should
-exactly know what to look for in here. The public headers provide the APIs for
-interaction with the kernel both inside and outside its realm.
+exactly know what to look for in here. The public headers provide the means for
+interaction with the kernel both inside and outside its codebase.
 
 # init/
 Generic kernel startup code (the platform-specific stuff lies in
-`arch/<your_architecture>`)
+`arch/<your_architecture>`). This is where the fundamental kernel init routines
+live, like `startup_kernel()` - a `main()`-like kernel function that runs right
+after all the basic architecture-specific matters are settled.
 
 # ipc/
-These directory names sort of spoil the surprise, don't they?
-
-`ipc/` is where inter-process communication code lives.
+`ipc/` is where inter-process communication code lives (what a twist! :smile:).
 
 # kernel/
-Generic kernel code (schedulers, namespaces, cgroups, user handling)
+Generic kernel biz (schedulers, namespaces, cgroups, user handling)
 
 # lib/
-Helper functions
+Helper functions and common algorithm implementation, e.g. the Completely Fair
+Scheduler's red-black tree lives there.
 
 # mm/
-Memory management
+Memory management - this chunk of code ensures that your kernel uses the
+system's memory as effectively as possible.
 
 # net/
 Networking
@@ -173,7 +175,12 @@ Networking
 Code samples
 
 # scripts/
-Helper scripts
+Helper scripts that exist to make the work around the project a little easier
+on the developer. Some of the most prominent ones include:
+* `checkpatch.pl` - a nagging friend of every Linux kernel developer, it's
+  purpose is to find obvious patch bloopers like coding style violations or
+  commit message format
+* `coccicheck`
 
 # security/
 Security infrastructure (home of SELinux, Tomoyo and others)
@@ -182,7 +189,7 @@ Security infrastructure (home of SELinux, Tomoyo and others)
 sound
 
 # tools/
-Helper tools and test programs
+Userland helper tools and test programs
 
 # usr/
 initcpio generation tools
