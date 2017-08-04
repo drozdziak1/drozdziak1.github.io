@@ -144,8 +144,9 @@ part of Linux that lets you browse files on different partitions as if they were
 a part of a single hierarchy.
 
 # include/
-Headers. And lots of them - if you've seen enough C/C++ projects, you won't be
-surprised to find most global headers in here.
+Headers. And lots of them - if you've seen enough C/C++ projects, you should
+exactly know what to look for in here. The public headers provide the APIs for
+interaction with the kernel both inside and outside its realm.
 
 # init/
 Generic kernel startup code (the platform-specific stuff lies in
