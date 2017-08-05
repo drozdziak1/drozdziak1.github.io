@@ -177,9 +177,9 @@ Code samples
 # scripts/
 Helper scripts that exist to make the work around the project a little easier
 on the developer. Some of the most prominent ones include:
-* `checkpatch.pl` - a nagging friend of every Linux kernel developer, it's
+* `checkpatch.pl` - a nagging friend of every Linux kernel developer, its
   purpose is to find obvious patch bloopers like coding style violations or
-  commit message format
+  commit message format in a changeset or 
 * `coccicheck`
 
 # security/
