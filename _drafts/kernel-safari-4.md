@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Kernel Safari #4: The (source) Tree of the Knowledge of Good and Evil"
+title: "Kernel Safari #4: The Source Tree of the Knowledge of Good and Evil"
 author: Stan Drozd
 date: 2017-07-31 08:00:00 +0200
 categories: kernel-safari
@@ -9,7 +9,7 @@ suit this topic better"
 tags: tutorial kernel modules c compilation tree signing
 ---
 
-Hiya! It trully is good to be back. I took a small hiatus from the blog for a
+Hiya! It truly is good to be back. I took a small hiatus from the blog for a
 couple weeks, and I spent that time primarily on learning about some of the cool
 stuff that happens outside the kernel realm. I believe that too much
 specialization can do to a brain what an undiversified diet does to a body.
@@ -17,7 +17,7 @@ specialization can do to a brain what an undiversified diet does to a body.
 Today we're going to talk about the kernel source directory and how to find your
 way around it. We'll cover the basic purpose of every top-level directory and
 talk more in-depth about the ones which you'll be peeking into the most often.
-Also, it's a good idea to talk about the patterns occuring in the directory
+Also, it's a good idea to talk about the patterns occurring in the directory
 layout in different places around the source tree.
 
 ```plain
@@ -72,37 +72,37 @@ resulting from your build, e.g.  `arch/x86/boot/bzImage` for a typical x86
 `defconfig` build.
 
 # block/
-This is the home of Linux block device implementation and the related generic
-implementations of I/O handling, scheduling, proritization, the relevant
-`ioctl()` requests, etc.
+This is the home of Linux block layer implementation and the related generic
+implementations of block manipulation, I/O handling, scheduling, prioritization,
+the relevant ioctl() requests etc.
 
 # certs/
 `certs/` holds the code responsible for [module
 signing](https://www.kernel.org/doc/html/latest/admin-guide/module-signing.html)
-\- a safety feature that prevents the kernel from loading unauthorized modules.
+\- a safety feature that lets the kernel verify authenticity of modules.
 
 # crypto/
 `crypto/` is the home of the kernel's cryptographic API, which consists of
-different cipher implementations and the code to make use of them; it's where
-hardware crypto capabilities get hooked up with your OS.
+different cipher implementations. Hardware-accelerated solutions can also use
+`crypto/`'s common
+[interface](http://elixir.free-electrons.com/linux/v4.12.5/source/crypto/algapi.c).
 
 > :information_source: Note:
 >
-> The kernel crypto API also implements different algorithms than ciphers, e.g.
+> The kernel crypto API also features algorithms other than ciphers, e.g.
 > compression algs.
 
 # drivers/
-Probably the most important directory in the whole project, if not only the
-biggest (at whopping 513MB of source code, nearly half of the whole codebase).
-This is where all the hardware/software chat is going, where lower-half drivers
-meet with their upper-half counterparts, where the magic of hardware abstraction
-happens.
+Probably the most significant directory in the whole project, if not only the
+biggest (nearly half of the whole codebase). This is where all the
+hardware/software chat is going, with lower-half drivers talking to their
+upper-half counterparts and where the magic of hardware abstraction happens.
 
 # firmware/
-`firmware/` is the home of firmware blobs, one of the few places where there is
-no human-readable source code in the kernel codebase. If you understand what
-loadable firmware is about, feel free to scroll to the next dir. If not, prepare
-to learn a thing or two :slightly_smiling_face:
+`firmware/` is just a big bag of firmware blobs, one of the few places where
+there is no human-readable source code in the kernel codebase. If you understand
+what loadable firmware is about, feel free to scroll to the next dir. If not,
+prepare to learn a thing or two :slightly_smiling_face:
 
 Imagine you have a USB stick - be it an LTE modem, a WiFi card or a DVB tuner.
 Your device has a couple on-board chips, among which there's a write-protected
@@ -124,7 +124,7 @@ all of those regulations stay unchanged over the years? Could you afford a flash
 so big that all the configs fit on a single device?
 
 What if you could design your hardware so that **the OS can load a firmware
-on-demand**? To answer the qeustions above, many manufacturers go even further
+on-demand**? To answer the questions above, many manufacturers go even further
 and choose to make it so that **the device's memory is volatile and it's the
 OS's job to find and load the correct firmware image onto the device**, while
 the hardware in itself only provides the basic mechanisms for firmware loading.
@@ -145,8 +145,8 @@ a part of a single hierarchy.
 
 # include/
 Headers. And lots of them - if you've seen enough C/C++ projects, you should
-exactly know what to look for in here. The public headers provide the means for
-interaction with the kernel both inside and outside its codebase.
+roughtly know what to look for in here. The public headers expose the APIs for
+interaction with the kernel both from the inside and userspace.
 
 # init/
 Generic kernel startup code (the platform-specific stuff lies in
@@ -161,12 +161,24 @@ after all the basic architecture-specific matters are settled.
 Generic kernel biz (schedulers, namespaces, cgroups, user handling)
 
 # lib/
-Helper functions and common algorithm implementation, e.g. the Completely Fair
-Scheduler's red-black tree lives there.
+Helper functions - kernels in general don't use any standard library and Linux
+is no different here. As a result, it had to develop some functions of its own.
+If you're looking for a generic implementation of a common operation, `lib/` is
+the place to go. Things like [string manipulation
+functions](http://elixir.free-electrons.com/linux/latest/source/lib/string.c),
+[hash function
+implementations](http://elixir.free-electrons.com/linux/v4.12.5/source/lib/sha1.c)
+or [compression
+algorithms](http://elixir.free-electrons.com/linux/v4.12.5/source/lib/lzo) can
+be found inside. Many ciphers and compression algorithms hooked up to the crypto
+API (`crypto/`) have their logic implemented here.
+
+A notable example of an algorithm from `lib/` are red-black trees, which are a
+common data structure used in different process schedulers.
 
 # mm/
 Memory management - this chunk of code ensures that your kernel uses the
-system's memory as effectively as possible.
+system's memory as efficiently as possible.
 
 # net/
 Networking
