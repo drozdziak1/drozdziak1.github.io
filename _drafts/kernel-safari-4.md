@@ -158,7 +158,9 @@ after all the basic architecture-specific matters are settled.
 `ipc/` is where inter-process communication code lives (what a twist! :smile:).
 
 # kernel/
-Generic kernel biz (schedulers, namespaces, cgroups, user handling)
+Generic kernel biz. `kernel/` is about everything related to generic OS
+functionality  (process scheduling, namespaces,
+cgroups, permissions enforcement)
 
 # lib/
 Helper functions - kernels in general don't use any standard library and Linux
@@ -173,8 +175,9 @@ algorithms](http://elixir.free-electrons.com/linux/v4.12.5/source/lib/lzo) can
 be found inside. Many ciphers and compression algorithms hooked up to the crypto
 API (`crypto/`) have their logic implemented here.
 
-A notable example of an algorithm from `lib/` are red-black trees, which are a
-common data structure used in different process schedulers.
+An interesting example of an algorithm from `lib/` is the [red-black
+tree](http://elixir.free-electrons.com/linux/latest/source/lib/rbtree.c), a data
+structure notably useful in process scheduling.
 
 # mm/
 Memory management - this chunk of code ensures that your kernel uses the
