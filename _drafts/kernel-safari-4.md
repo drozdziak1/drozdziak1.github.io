@@ -149,18 +149,20 @@ roughtly know what to look for in here. The public headers expose the APIs for
 interaction with the kernel both from the inside and userspace.
 
 # init/
-Generic kernel startup code (the platform-specific stuff lies in
+Architecture-independent kernel startup code (the platform-specific stuff lies in
 `arch/<your_architecture>`). This is where the fundamental kernel init routines
-live, like `startup_kernel()` - a `main()`-like kernel function that runs right
-after all the basic architecture-specific matters are settled.
+live, like `startup_kernel()` - a generic kernel function that runs right
+after all the architecture-specific setup is finished.
 
 # ipc/
 `ipc/` is where inter-process communication code lives (what a twist! :smile:).
+Most part of this directory is taken by 
 
 # kernel/
 Generic kernel biz. `kernel/` is about everything related to generic OS
-functionality  (process scheduling, namespaces,
-cgroups, permissions enforcement)
+functionality, like process scheduling, namespaces, cgroups, permissions
+enforcement, debugging interfaces, interrupt handling infrastructure, events,
+thread synchronization, logging and much more.
 
 # lib/
 Helper functions - kernels in general don't use any standard library and Linux
@@ -180,14 +182,17 @@ tree](http://elixir.free-electrons.com/linux/latest/source/lib/rbtree.c), a data
 structure notably useful in process scheduling.
 
 # mm/
-Memory management - this chunk of code ensures that your kernel uses the
-system's memory as efficiently as possible.
+Memory management - as the name suggests, this directory takes care of all the
+different mechanisms related to memory - things like paging,
+memory allocators, DMA or swap are implemented here and help your system manage
+its memory as efficiently as possible.
 
 # net/
-Networking
+Networking - this is where basically all network protocols supported by Linux
+live.
 
 # samples/
-Code samples
+Various code samples presenting how different parts of Linux work
 
 # scripts/
 Helper scripts that exist to make the work around the project a little easier
