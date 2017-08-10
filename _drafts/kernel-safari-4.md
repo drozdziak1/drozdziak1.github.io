@@ -9,16 +9,23 @@ suit this topic better"
 tags: tutorial kernel modules c compilation tree signing
 ---
 
-Hiya! It truly is good to be back. I took a small hiatus from the blog for a
-couple weeks, and I spent that time primarily on learning about some of the cool
+> :information_source: Note:
+>
+> Treat my post as a map. Don't bother reading or memorizing all of this at
+> once. Just skim through and find something interesting - it's about making
+> things more approachable, not forcing them down your throat :smile:
+> 
+> BTW: This guide reflects the status quo as of July-August 2017
+
+Hiya! It's really good to be back. I took a small hiatus from the blog for a
+couple weeks. I spent that time primarily on learning about some of the cool
 stuff that happens outside the kernel realm. I believe that too much
-specialization can do to a brain what an undiversified diet does to a body.
+specialization can do to a brain what an undiversified diet does to a body. But
+now I'm back on track!
 
 Today we're going to talk about the kernel source directory and how to find your
 way around it. We'll cover the basic purpose of every top-level directory and
-talk more in-depth about the ones which you'll be peeking into the most often.
-Also, it's a good idea to talk about the patterns occurring in the directory
-layout in different places around the source tree.
+talk more in-depth about some of them. Behold!
 
 ```plain
 -rw-r--r--   1 drozdziak1 drozdziak1  18693 2016-09-07  COPYING
@@ -72,9 +79,9 @@ resulting from your build, e.g.  `arch/x86/boot/bzImage` for a typical x86
 `defconfig` build.
 
 # block/
-This is the home of Linux block layer implementation and the related generic
-implementations of block manipulation, I/O handling, scheduling, prioritization,
-the relevant ioctl() requests etc.
+This is the home of Linux block layer and the related generic implementations of
+block manipulation, I/O handling, scheduling, prioritization, the relevant
+ioctl() requests etc.
 
 # certs/
 `certs/` holds the code responsible for [module
@@ -109,19 +116,17 @@ Your device has a couple on-board chips, among which there's a write-protected
 flash die for storing the device's firmware. Nothing unusual about that, huh?
 
 **But!** What if your developers make a mistake or discover a security hole and
-thousands of devices were to become vulnerable, with no other way out than
+thousands of devices are to become vulnerable, with no other way out than
 discarding them?
 
-**But!** What if a wireless technology which your device works with is growing
-very fast and receiving frequent updates? What if those would normally force you
-to release new versions of your hardware more often than you can afford?
+**But!** What if a wireless technology which your device works with grows very
+fast and receives frequent updates? What if those would normally force you to
+release new versions of your hardware more often than you can afford?
 
-**But!** What if your hardware needs to work with tens of different
-configurations depending e.g. on the target country? Like WiFi cards do with
-respect to restricted radio frequency
-[regulations](https://wireless.wiki.kernel.org/en/developers/Regulatory)? Would
-all of those regulations stay unchanged over the years? Could you afford a flash
-so big that all the configs fit on a single device?
+**But!** What if you're using a protocol that has its frequencies and signal
+strength regulated different countries? Would all of these regulations stay
+unchanged forever? Could you afford a flash so big that all the configs
+fit on a single device?
 
 What if you could design your hardware so that **the OS can load a firmware
 on-demand**? To answer the questions above, many manufacturers go even further
@@ -130,55 +135,82 @@ OS's job to find and load the correct firmware image onto the device**, while
 the hardware in itself only provides the basic mechanisms for firmware loading.
 
 #### But why does firmware have its source closed?
-There's one thing you need to know about hardware manufacturing: source code can
-reveal how your hardware works. Inherently this is how you get cheap knock-offs
-from the competition and unsolicited reverse engineering of your product.
+Open-source software is all nice and dandy, but things can look different in
+hardware manufacturing - source code can reveal how your hardware works, which
+sooner or later will give you cheap knock-offs from the competition and
+unsolicited reverse engineering of your product.
+
+Given all that, today Linux frowns upon getting new firmware blobs into the
+source tree. If you have to use one, you'll usually have to supply it yourselv
+and keep it [in the
+userspace](https://www.kernel.org/doc/html/latest/driver-api/firmware/direct-fs-lookup.html)
+or build it into Linux [at
+compile-time](https://www.kernel.org/doc/html/latest/driver-api/firmware/built-in-fw.html).
 
 # fs/
-This place is special, because it describes the implementation of all the
-different filesystems that Linux supports. Some of them are not tied to real
-drives (they're called *pseudofilesystems*, e.g. `devtmpfs` used for `/dev/` or
-`sysfs` used for `/sys/`) and exist purely in RAM. But pseudo- or not, their
-common denominator is the interface known as VFS (Virtual File System) - the
-part of Linux that lets you browse files on different partitions as if they were
-a part of a single hierarchy.
+In `fs/` you'll find the implementation of all the different filesystems that
+Linux supports. Some of them are not tied to real drives (they're called
+*pseudofilesystems*, e.g. `devtmpfs` used for `/dev/` or `sysfs` used for
+`/sys/`) and exist purely in RAM. But pseudo- or not, their common denominator
+is the interface known as VFS (Virtual File System) - the part of Linux that
+lets you browse files on different partitions as if they were a part of a single
+hierarchy.
 
 # include/
-Headers. And lots of them - if you've seen enough C/C++ projects, you should
-roughtly know what to look for in here. The public headers expose the APIs for
+Headers - And lots of them. If you've seen enough C/C++ projects, you should
+roughly know what to look for in here. The public headers expose the APIs for
 interaction with the kernel both from the inside and userspace.
 
 # init/
 Generic kernel startup code (the platform-specific stuff lies in
-`arch/<your_architecture>`). This is where the fundamental kernel init routines
-live, like `startup_kernel()` - a `main()`-like kernel function that runs right
-after all the basic architecture-specific matters are settled.
+`arch/<your_architecture>`). This is where the kernel startup routines live,
+like `startup_kernel()` - the kernel function that takes over after the
+your machine is done with architecture-specific provisioning.
 
 # ipc/
 `ipc/` is where inter-process communication code lives (what a twist! :smile:).
+Pipes, shared memory, message queues etc. are the name of the game.
 
 # kernel/
-Generic kernel biz (schedulers, namespaces, cgroups, user handling)
+This is the home of all things that make Linux a real kernel:
+* process scheduling, prioritization
+* cgroups
+* synchronization primitives
+* high-level power management
+* timekeeping
+* debugging and profiling (of both the kernel itself and user programs)
+* logging
+* error handling
+* module loading
+* user and groups permissions management
+* stuff specific to multicore machines
+
+...and more!
+
+As you can see, `kernel/` has the potential to give you a great deal of insight
+about how things are done under the hood.
 
 # lib/
-Helper functions - kernels in general don't use any standard library and Linux
-is no different here. As a result, it had to develop some functions of its own.
-If you're looking for a generic implementation of a common operation, `lib/` is
-the place to go. Things like [string manipulation
+Helper functions - kernels in general have no use for the standard library. As a result,
+it had to develop some functions of its own.  If you're looking for a generic
+implementation of a common operation, `lib/` is the place to go. Things like
+[string manipulation
 functions](http://elixir.free-electrons.com/linux/latest/source/lib/string.c),
 [hash function
 implementations](http://elixir.free-electrons.com/linux/v4.12.5/source/lib/sha1.c)
 or [compression
 algorithms](http://elixir.free-electrons.com/linux/v4.12.5/source/lib/lzo) can
-be found inside. Many ciphers and compression algorithms hooked up to the crypto
+be found inside. Some ciphers and compression algorithms hooked up to the crypto
 API (`crypto/`) have their logic implemented here.
 
-A notable example of an algorithm from `lib/` are red-black trees, which are a
+A cool example of an algorithm from `lib/` are red-black trees, which are a
 common data structure used in different process schedulers.
 
 # mm/
-Memory management - this chunk of code ensures that your kernel uses the
-system's memory as efficiently as possible.
+Memory management - once you understand the acronym, `mm/`'s contents are no
+longer a mystery. This directory holds the code for different memory allocators,
+paging implementation, swap, memory sharing mechanisms, memory compression,
+talking to backing devices, 
 
 # net/
 Networking
@@ -191,7 +223,7 @@ Helper scripts that exist to make the work around the project a little easier
 on the developer. Some of the most prominent ones include:
 * `checkpatch.pl` - a nagging friend of every Linux kernel developer, its
   purpose is to find obvious patch bloopers like coding style violations or
-  commit message format in a changeset or 
+  commit message format in a changeset or
 * `coccicheck`
 
 # security/
@@ -208,3 +240,5 @@ initcpio generation tools
 
 # virt/
 Home of KVM
+
+## Where them syscalls and namespaces at?
