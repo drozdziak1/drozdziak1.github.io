@@ -79,9 +79,9 @@ resulting from your build, e.g.  `arch/x86/boot/bzImage` for a typical x86
 `defconfig` build.
 
 # block/
-This is the home of Linux block layer and the related generic implementations of
-block manipulation, I/O handling, scheduling, prioritization, the relevant
-ioctl() requests etc.
+This is the home of the Linux block layer and the related generic
+implementations of block manipulation, I/O handling, scheduling, prioritization,
+the relevant ioctl() requests etc.
 
 # certs/
 `certs/` holds the code responsible for [module
@@ -203,8 +203,8 @@ algorithms](http://elixir.free-electrons.com/linux/v4.12.5/source/lib/lzo) can
 be found inside. Some ciphers and compression algorithms hooked up to the crypto
 API (`crypto/`) have their logic implemented here.
 
-A cool example of an algorithm from `lib/` are red-black trees, which are a
-common data structure used in different process schedulers.
+An interesting example of an algorithm from `lib/` are red-black trees, which
+are a common data structure used in different process schedulers.
 
 # mm/
 Memory management - once you understand the acronym, `mm/`'s contents are no
@@ -213,10 +213,11 @@ paging implementation, swap, memory sharing mechanisms, memory compression,
 talking to backing devices, 
 
 # net/
-Networking
+Networking - this is where basically all network protocols supported by Linux
+live.
 
 # samples/
-Code samples
+Various code samples presenting how different parts of Linux work
 
 # scripts/
 Helper scripts that exist to make the work around the project a little easier
