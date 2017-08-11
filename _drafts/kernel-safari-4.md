@@ -14,8 +14,6 @@ tags: tutorial kernel modules c compilation tree signing
 > Treat my post as a map. Don't bother reading or memorizing all of this at
 > once. Just skim through and find something interesting - it's about making
 > things more approachable, not forcing them down your throat :smile:
-> 
-> BTW: This guide reflects the status quo as of July-August 2017
 
 Hiya! It's really good to be back. I took a small hiatus from the blog for a
 couple weeks. I spent that time primarily on learning about some of the cool
@@ -141,7 +139,7 @@ sooner or later will give you cheap knock-offs from the competition and
 unsolicited reverse engineering of your product.
 
 Given all that, today Linux frowns upon getting new firmware blobs into the
-source tree. If you have to use one, you'll usually have to supply it yourselv
+source tree. If you have to use one, you'll usually have to supply it yourself
 and keep it [in the
 userspace](https://www.kernel.org/doc/html/latest/driver-api/firmware/direct-fs-lookup.html)
 or build it into Linux [at
@@ -178,7 +176,7 @@ This is the home of all things that make Linux a real kernel:
 * synchronization primitives
 * high-level power management
 * timekeeping
-* debugging and profiling (of both the kernel itself and user programs)
+* debugging and profiling (of both the kernel and user programs)
 * logging
 * error handling
 * module loading
@@ -209,12 +207,17 @@ are a common data structure used in different process schedulers.
 # mm/
 Memory management - once you understand the acronym, `mm/`'s contents are no
 longer a mystery. This directory holds the code for different memory allocators,
-paging implementation, swap, memory sharing mechanisms, memory compression,
-talking to backing devices, 
+paging implementation, swap implementation, memory sharing mechanisms, memory
+compression, talking to backing devices, DMA etc.
+
+Fun fact: `mm/` is also where the [Dirty
+COW](https://github.com/dirtycow/dirtycow.github.io/wiki/VulnerabilityDetails)
+vulnerability existed and got patched up.
 
 # net/
-Networking - this is where basically all network protocols supported by Linux
-live.
+Networking - every network protocol supported by Linux is kept here. But apart
+from that, there's also the firewall infrastructure, UNIX sockets
+implementation,
 
 # samples/
 Various code samples presenting how different parts of Linux work
@@ -243,3 +246,4 @@ initcpio generation tools
 Home of KVM
 
 ## Where them syscalls and namespaces at?
+
