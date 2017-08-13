@@ -11,7 +11,7 @@ tags: tutorial kernel modules c compilation tree signing
 
 > :information_source: Note:
 >
-> Treat my post as a map. Don't bother reading or memorizing all of this at
+> Treat this post as a map. Don't bother reading or memorizing all of this at
 > once. Just skim through and find something interesting - it's about making
 > things more approachable, not forcing them down your throat :smile:
 
@@ -64,11 +64,11 @@ environment tips, the [kernel development
 process](https://www.kernel.org/doc/html/latest/process/development-process.html)
 and patch exchange rules, all the way to the intricacies of how the actual code
 works. As far as docs viewing goes, the modern approach is to use the
-sphinx-generated RST docs available under the `*docs` Make targets (see `make
-help | grep docs` for more details) or one of the hosted instances like
+sphinx-generated documentation available under the `*docs` Make targets (see
+`make help | grep docs` for more details) or one of the hosted instances like
 [https://www.kernel.org/doc/html/latest](https://www.kernel.org/doc/html/latest).
-To view a freshly compiled batch of docs, see the `Documentation/output`
-directory in your source tree.
+To view a freshly compiled batch, see the `Documentation/output` directory in
+your source tree.
 
 # arch/
 `arch/` is responsible for all things architecture-specific. Also, whenever you
@@ -122,8 +122,8 @@ fast and receives frequent updates? What if those would normally force you to
 release new versions of your hardware more often than you can afford?
 
 **But!** What if you're using a protocol that has its frequencies and signal
-strength regulated different countries? Would all of these regulations stay
-unchanged forever? Could you afford a flash so big that all the configs
+strength regulated in different countries? Would all of those regulations stay
+the same forever? Could you afford a flash so big that all the configs
 fit on a single device?
 
 What if you could design your hardware so that **the OS can load a firmware
@@ -138,9 +138,9 @@ hardware manufacturing - source code can reveal how your hardware works, which
 sooner or later will give you cheap knock-offs from the competition and
 unsolicited reverse engineering of your product.
 
-Given all that, today Linux frowns upon getting new firmware blobs into the
-source tree. If you have to use one, you'll usually have to supply it yourself
-and keep it [in the
+Given all that, Linux doesn't accept new firmware blobs into the source tree
+anymore. If you have to use one, you'll usually have to supply it yourself and
+keep it [in the
 userspace](https://www.kernel.org/doc/html/latest/driver-api/firmware/direct-fs-lookup.html)
 or build it into Linux [at
 compile-time](https://www.kernel.org/doc/html/latest/driver-api/firmware/built-in-fw.html).
@@ -162,12 +162,12 @@ interaction with the kernel both from the inside and userspace.
 # init/
 Generic kernel startup code (the platform-specific stuff lies in
 `arch/<your_architecture>`). This is where the kernel startup routines live,
-like `startup_kernel()` - the kernel function that takes over after the
-your machine is done with architecture-specific provisioning.
+like `startup_kernel()` - the kernel function that takes over after your machine
+is done with architecture-specific provisioning.
 
 # ipc/
 `ipc/` is where inter-process communication code lives (what a twist! :smile:).
-Pipes, shared memory, message queues etc. are the name of the game.
+Pipes, shared memory, message queues is what you'll find there.
 
 # kernel/
 This is the home of all things that make Linux a real kernel:
@@ -185,14 +185,14 @@ This is the home of all things that make Linux a real kernel:
 
 ...and more!
 
-As you can see, `kernel/` has the potential to give you a great deal of insight
-about how things are done under the hood.
+`kernel/` has the potential to give you a great deal of insight about how things
+are done under the hood.
 
 # lib/
-Helper functions - kernels in general have no use for the standard library. As a result,
-it had to develop some functions of its own.  If you're looking for a generic
-implementation of a common operation, `lib/` is the place to go. Things like
-[string manipulation
+Helper functions - kernels in general have no use for the standard library.
+Linux is no different here and it had to develop some functions of its own. If
+you're looking for a generic implementation of a common operation, `lib/` is the
+place to go. Things like [string manipulation
 functions](http://elixir.free-electrons.com/linux/latest/source/lib/string.c),
 [hash function
 implementations](http://elixir.free-electrons.com/linux/v4.12.5/source/lib/sha1.c)
@@ -202,7 +202,9 @@ be found inside. Some ciphers and compression algorithms hooked up to the crypto
 API (`crypto/`) have their logic implemented here.
 
 An interesting example of an algorithm from `lib/` are red-black trees, which
-are a common data structure used in different process schedulers.
+are a common data structure used in different process schedulers,
+[kmemleaks](https://www.kernel.org/doc/html/v4.10/dev-tools/kmemleak.html) and
+more!
 
 # mm/
 Memory management - once you understand the acronym, `mm/`'s contents are no
@@ -212,23 +214,34 @@ compression, talking to backing devices, DMA etc.
 
 Fun fact: `mm/` is also where the [Dirty
 COW](https://github.com/dirtycow/dirtycow.github.io/wiki/VulnerabilityDetails)
-vulnerability existed and got patched up.
+vulnerability was discovered.
 
 # net/
 Networking - every network protocol supported by Linux is kept here. But apart
-from that, there's also the firewall infrastructure, UNIX sockets
-implementation,
+from that, there's also the firewall infrastructure, the UNIX sockets
+implementation, DNS cache, network statistics etc.
 
 # samples/
-Various code samples presenting how different parts of Linux work
+Various code samples useful for testing different kernel APIs, like:
+* [HID](http://elixir.free-electrons.com/linux/latest/source/samples/hidraw/hid-example.c)
+* [Hardware
+  breakpoints](http://elixir.free-electrons.com/linux/latest/source/samples/hw_breakpoint/data_breakpoint.c)
+* [The kernel
+  debugger](http://elixir.free-electrons.com/linux/latest/source/samples/kdb/kdb_hello.c)
+* [Video](http://elixir.free-electrons.com/linux/latest/source/samples/v4l/v4l2-pci-skeleton.c)
+* [The packet filter
+  format](http://elixir.free-electrons.com/linux/latest/source/samples/bpf/README.rst)
+* [The
+  watchdog](http://elixir.free-electrons.com/linux/latest/source/samples/watchdog/watchdog-simple.c)
+* Various system calls
 
 # scripts/
-Helper scripts that exist to make the work around the project a little easier
-on the developer. Some of the most prominent ones include:
+Helper scripts for making the work around the project a little easier
+on the developer. Prominent examples include:
 * `checkpatch.pl` - a nagging friend of every Linux kernel developer, its
-  purpose is to find obvious patch bloopers like coding style violations or
-  commit message format in a changeset or
-* `coccicheck`
+  purpose is to find obvious patch bloopers like coding style violations or the
+  commit message format in patches or changes to the repo tracked by git.
+* `get_maintainer.pl` - 
 
 # security/
 Security infrastructure (home of SELinux, Tomoyo and others)
@@ -245,5 +258,5 @@ initcpio generation tools
 # virt/
 Home of KVM
 
-## Where them syscalls and namespaces at?
+## Where them syscalls/namespaces at?
 
