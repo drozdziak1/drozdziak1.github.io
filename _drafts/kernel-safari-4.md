@@ -240,14 +240,22 @@ Helper scripts for making the work around the project a little easier
 on the developer. Prominent examples include:
 * `checkpatch.pl` - a nagging friend of every Linux kernel developer, its
   purpose is to find obvious patch bloopers like coding style violations or the
-  commit message format in patches or changes to the repo tracked by git.
-* `get_maintainer.pl` - 
+  commit message format in patches or changes to the repo tracked by git
+* `get_maintainer.pl` - a helper script for finding the maintainers and
+  mailing lists connected to the specified file(s). When you find a bug or add
+  code which you'd like to send a patch for, it'll tell you where to send it
+  and who to CC
+* `coccicheck` - a
+  [Coccinelle](https://www.kernel.org/doc/html/latest/dev-tools/coccinelle.html)
+  script for semantic analysis of the kernel sources
 
 # security/
-Security infrastructure (home of SELinux, Tomoyo and others)
+Security modules - this directory contains the different means for OS hardening
+that Linux supports, including `SELinux` and `AppArmor`.
 
 # sound/
-sound
+The home of all the major sound systems supported by Linux, including ALSA, OSS
+and Jack.
 
 # tools/
 Userland helper tools and test programs
@@ -259,4 +267,3 @@ initcpio generation tools
 Home of KVM
 
 ## Where them syscalls/namespaces at?
-
