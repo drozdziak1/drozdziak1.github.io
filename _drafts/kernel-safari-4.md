@@ -251,7 +251,7 @@ on the developer. Prominent examples include:
 
 # security/
 Security modules - this directory contains the different means for OS hardening
-that Linux supports, including `SELinux` and `AppArmor`.
+that Linux supports, including SELinux and AppArmor.
 
 # sound/
 The home of all the major sound systems supported by Linux, including ALSA, OSS
