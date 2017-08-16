@@ -12,7 +12,7 @@ NAME
     faithful admirer  of  the  FLOSS  movement,  technical  knowledge  omnivore.
 
 SYNOPSIS
-    drozdziak1 <command> [arguments]
+    drozdziak1 <thesis> [arguments]
 
 DESCRIPTION
     drozdziak1 is a general purpose human able in various fields.   His  efforts
