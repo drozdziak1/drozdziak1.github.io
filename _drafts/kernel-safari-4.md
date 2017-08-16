@@ -2,7 +2,7 @@
 layout: post
 title: "Kernel Safari #4: The Source Tree of the Knowledge of Good and Evil"
 author: Stan Drozd
-date: 2017-08-16 17:00:00 +0200
+date: 2017-08-16 14:41:00 +0200
 categories: kernel-safari
 excerpt: "I had an inner debate about whether Genesis or Dante's Inferno would
 suit this topic better"
