@@ -3,7 +3,7 @@ layout: post
 title:  "DSP-17 #1: The kernel's role in an OS"
 author: Stan Drozd
 date: 2017-03-02 22:00:00 +0100
-categories: dsp17
+categories: dsp17 kernel-safari
 tags: kernel introduction anatomy tux penguin compilation dsp17
 ---
 ![Hey kids, wanna recompile some kernels?]({{ site.url }}/assets/recompile_some_kernels.jpg)

@@ -2,11 +2,11 @@
 layout: post
 title: "Kernel Safari #4: The Source Tree of the Knowledge of Good and Evil"
 author: Stan Drozd
-date: 2017-07-31 08:00:00 +0200
+date: 2017-08-16 17:00:00 +0200
 categories: kernel-safari
-excerpt: "Had an inner conflict about whether Genesis or Dante's Inferno would
+excerpt: "I had an inner debate about whether Genesis or Dante's Inferno would
 suit this topic better"
-tags: tutorial kernel modules c compilation tree signing
+tags: tutorial kernel modules c compilation tree signing tour
 ---
 
 > :information_source: Note:
@@ -16,10 +16,10 @@ tags: tutorial kernel modules c compilation tree signing
 > things more approachable, not forcing them down your throat :smile:
 
 Hiya! It's really good to be back. I took a small hiatus from the blog for a
-couple weeks. I spent that time primarily on learning about some of the cool
-stuff that happens outside the kernel realm. I believe that too much
-specialization can do to a brain what an undiversified diet does to a body. But
-now I'm back on track!
+couple weeks. I spent that time primarily learning about some of the cool stuff
+that happens outside the kernel realm. I believe that too much specialization
+can do to a brain what an undiversified diet does to a body. But now I'm back on
+track!
 
 Today we're going to talk about the kernel source directory and how to find your
 way around it. We'll cover the basic purpose of every top-level directory and
@@ -203,7 +203,7 @@ API (`crypto/`) have their logic implemented here.
 
 An interesting example of an algorithm from `lib/` are red-black trees, which
 are a common data structure used in different process schedulers,
-[kmemleaks](https://www.kernel.org/doc/html/v4.10/dev-tools/kmemleak.html) and
+[kmemleak](https://www.kernel.org/doc/html/v4.10/dev-tools/kmemleak.html) and
 more!
 
 # mm/
@@ -212,9 +212,11 @@ longer a mystery. This directory holds the code for different memory allocators,
 paging implementation, swap implementation, memory sharing mechanisms, memory
 compression, talking to backing devices, DMA etc.
 
-Fun fact: `mm/` is also where the [Dirty
-COW](https://github.com/dirtycow/dirtycow.github.io/wiki/VulnerabilityDetails)
-vulnerability was discovered.
+> :information_source: Note:
+>
+> `mm/` is also where the [Dirty
+> COW](https://github.com/dirtycow/dirtycow.github.io/wiki/VulnerabilityDetails)
+> vulnerability was discovered.
 
 # net/
 Networking - every network protocol supported by Linux is kept here. But apart
@@ -247,23 +249,87 @@ on the developer. Prominent examples include:
   and who to CC
 * `coccicheck` - a
   [Coccinelle](https://www.kernel.org/doc/html/latest/dev-tools/coccinelle.html)
-  script for semantic analysis of the kernel sources
+  script for semantic analysis of the kernel sources.
 
 # security/
 Security modules - this directory contains the different means for OS hardening
-that Linux supports, including SELinux and AppArmor.
+that Linux supports, including
+[SELinux](https://www.kernel.org/doc/html/latest/admin-guide/LSM/SELinux.html),
+[AppArmor](https://www.kernel.org/doc/html/latest/admin-guide/LSM/apparmor.html)
+and [others](https://www.kernel.org/doc/html/latest/admin-guide/LSM/index.html).
 
 # sound/
 The home of all the major sound systems supported by Linux, including ALSA, OSS
 and Jack.
 
 # tools/
-Userland helper tools and test programs
+Userland helper tools and test programs - this directory is very similar to
+`samples/` but its contents are more focused on usable solutions than examples
+of how the underlying kernel code works.
 
 # usr/
-initcpio generation tools
+You may remember this directory from the time when we [generated a kernel image
+for KVM]({% post_url 2017-03-14-DSP17-2 %}). For some reason, it was decided
+that only the tool for generating initcpio's should live here.
 
 # virt/
-Home of KVM
+Host-side KVM implementation.
 
 ## Where them syscalls/namespaces at?
+Some parts of Linux don't have a centralized location in the codebase, with
+system calls and namespaces being two notable examples.
+
+You probably know what system calls are, but in case you don't, they're
+basically a collection of special procedures that userspace programs use to make
+each and every request from the operating system. There's about 300 of them, and
+to call one, your Linux program sets a designated register to the system call
+number and then specifies the call's arguments according to the architecture's
+system call [calling
+convention](https://en.wikipedia.org/wiki/Calling_convention) (see the
+"Architecture calling conventions" section of `man 2 syscall` for more
+information). Finally, the process requests a context switch to kernelspace,
+e.g. in x86 by invoking software interrupt No. 128:
+
+```assembly
+movl    eax, 4          ; Choose the write() system call number
+movl    ebx, 1          ; Choose file descriptor 1 a.k.a. stdout
+movl    ecx, 0xdeadbeef ; Choose a pointer to a string at address 0xdeadbeef
+movl    edx, 12         ; Specify the string's length as 12 bytes
+int     0x80            ; Invoke interrupt 128, the kernel takes over now
+```
+*write(1, "some message", 12)*
+
+Because they appeal to many different subsystems, syscalls are defined all over
+the kernel sources using a special set of macros which combine them into a list
+that pairs each one up with a syscall number.
+
+> :information_source: Note:
+>
+> If you're curious about the system calls used by your program, check out
+> `strace` - a tool for dumping all syscalls used by your application as they're
+> called. The program is especially great for reverse engineering of
+> closed-source applications and low-level debugging.
+
+Namespaces together with cgroups form a foundation for Linux OS-level
+virtualization (containers). Namespaces work by exposing only the selected
+resources to a process that we want to isolate. To date, the namespace-ified
+subsystems include:
+```plain
+Namespace   Constant          Isolates
+Cgroup      CLONE_NEWCGROUP   Cgroup root directory
+IPC         CLONE_NEWIPC      System V IPC, POSIX message queues
+Network     CLONE_NEWNET      Network devices, stacks, ports, etc.
+Mount       CLONE_NEWNS       Mount points
+PID         CLONE_NEWPID      Process IDs
+User        CLONE_NEWUSER     User and group IDs
+UTS         CLONE_NEWUTS      Hostname and NIS domain name
+```
+*See* `man 7 namespaces` *for more details*
+
+# Conclusion
+This post required a lot of effort, but here it is! Working on this was real fun
+and it also gave me a reason to learn more about the source tree myself. For the
+next post, I'm planning to do some bug hunting in the kernel and write up a
+little report.
+
+:deciduous_tree: :evergreen_tree: :palm_tree:

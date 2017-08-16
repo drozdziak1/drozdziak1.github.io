@@ -4,7 +4,7 @@ title: "DSP-17 #0: Better RSS + Muut comments = an easy recipe for improving
 your Jekyll blog"
 author: Stan Drozd
 date:   2017-02-24 8:00:00 +0100
-categories: dsp17 meta
+categories: dsp17 meta kernel-safari
 tags: dsp17 tutorial jekyll rss muut comments feed disqus alternative
 published: true
 ---
